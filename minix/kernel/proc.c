@@ -174,7 +174,8 @@ static void switch_address_space_idle(void)
 
 
 // XXX
-short int msg_matrix[NR_PROC*NR_PROC] = { 0 }
+const int proc_limit = 256;
+short int msg_matrix[proc_limit*proc_limit] = { 0 };
 
 
 
@@ -829,7 +830,7 @@ int mini_send(
 	dst_p = _ENDPOINT_P(dst_e);
 	dst_ptr = proc_addr(dst_p);
 
-	int msg_mtx_entry = caller_ptr->proc_nr*NR_PROC + dst_e->proc_nr;
+	int msg_mtx_entry = caller_ptr->p_nr*proc_limit + dst_ptr->p_nr;
 	msg_matrix[msg_mtx_entry]++;
 
 	if (RTS_ISSET(dst_ptr, RTS_NO_ENDPOINT))
