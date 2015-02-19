@@ -87,7 +87,7 @@
 #define is_ipc_notify(ipc_status) (IPC_STATUS_CALL(ipc_status) == NOTIFY)
 #define is_notify(a)		  ((unsigned) ((a) - NOTIFY_MESSAGE) < 0x100)
 #define is_ipc_asynch(ipc_status) \
-    (is_ipc_notify(ipc_status) || IPC_STATUS_CALL(ipc_status) == SENDA)
+	(is_ipc_notify(ipc_status) || IPC_STATUS_CALL(ipc_status) == SENDA)
 
 /*===========================================================================*
  *                Messages for BUS controller drivers 			     *
@@ -96,62 +96,62 @@
 #define BUSC_RS_BASE	0x380	/* base for response types */
 
 #define BUSC_PCI_INIT		(BUSC_RQ_BASE + 0)	/* First message to
-							 * PCI driver
-							 */
+												 * PCI driver
+												 */
 #define BUSC_PCI_FIRST_DEV	(BUSC_RQ_BASE + 1)	/* Get index (and
-							 * vid/did) of the
-							 * first PCI device
-							 */
+												 * vid/did) of the
+												 * first PCI device
+												 */
 #define BUSC_PCI_NEXT_DEV	(BUSC_RQ_BASE + 2)	/* Get index (and
-							 * vid/did) of the
-							 * next PCI device
-							 */
+												 * vid/did) of the
+												 * next PCI device
+												 */
 #define BUSC_PCI_FIND_DEV	(BUSC_RQ_BASE + 3)	/* Get index of a
-							 * PCI device based on
-							 * bus/dev/function
-							 */
+												 * PCI device based on
+												 * bus/dev/function
+												 */
 #define BUSC_PCI_IDS		(BUSC_RQ_BASE + 4)	/* Get vid/did from an
-							 * index
-							 */
+												 * index
+												 */
 #define BUSC_PCI_RESERVE	(BUSC_RQ_BASE + 7)	/* Reserve a PCI dev */
 #define BUSC_PCI_ATTR_R8	(BUSC_RQ_BASE + 8)	/* Read 8-bit
-							 * attribute value
-							 */
+												 * attribute value
+												 */
 #define BUSC_PCI_ATTR_R16	(BUSC_RQ_BASE + 9)	/* Read 16-bit
-							 * attribute value
-							 */
+												 * attribute value
+												 */
 #define BUSC_PCI_ATTR_R32	(BUSC_RQ_BASE + 10)	/* Read 32-bit
-							 * attribute value
-							 */
+												 * attribute value
+												 */
 #define BUSC_PCI_ATTR_W8	(BUSC_RQ_BASE + 11)	/* Write 8-bit
-							 * attribute value
-							 */
+												 * attribute value
+												 */
 #define BUSC_PCI_ATTR_W16	(BUSC_RQ_BASE + 12)	/* Write 16-bit
-							 * attribute value
-							 */
+												 * attribute value
+												 */
 #define BUSC_PCI_ATTR_W32	(BUSC_RQ_BASE + 13)	/* Write 32-bit
-							 * attribute value
-							 */
+												 * attribute value
+												 */
 #define BUSC_PCI_RESCAN		(BUSC_RQ_BASE + 14)	/* Rescan bus */
 #define BUSC_PCI_DEV_NAME_S	(BUSC_RQ_BASE + 15)	/* Get the name of a
-							 * PCI device
-							 * (safecopy)
-							 */
+												 * PCI device
+												 * (safecopy)
+												 */
 #define BUSC_PCI_SLOT_NAME_S	(BUSC_RQ_BASE + 16)	/* Get the name of a
-							 * PCI slot (safecopy)
-							 */
+													 * PCI slot (safecopy)
+													 */
 #define BUSC_PCI_SET_ACL	(BUSC_RQ_BASE + 17)	/* Set the ACL for a
-							 * driver (safecopy)
-							 */
+												 * driver (safecopy)
+												 */
 #define BUSC_PCI_DEL_ACL	(BUSC_RQ_BASE + 18)	/* Delete the ACL of a
-							 * driver 
-							 */
+												 * driver 
+												 */
 #define BUSC_PCI_GET_BAR	(BUSC_RQ_BASE + 19)	/* Get Base Address
-							 * Register properties
-							 */
+												 * Register properties
+												 */
 #define IOMMU_MAP		(BUSC_RQ_BASE + 32)	/* Ask IOMMU to map
-							 * a segment of memory
-							 */
+											 * a segment of memory
+											 */
 
 #define BUSC_I2C_RESERVE	(BUSC_RQ_BASE + 64)	/* reserve i2c device */
 #define BUSC_I2C_EXEC		(BUSC_RQ_BASE + 65)	/* perform i2c action */
@@ -268,9 +268,9 @@
 
 /* Basic kernel calls allowed to every system process. */
 #define SYS_BASIC_CALLS \
-    SYS_EXIT, SYS_SAFECOPYFROM, SYS_SAFECOPYTO, SYS_VSAFECOPY, SYS_GETINFO, \
-    SYS_TIMES, SYS_SETALARM, SYS_SETGRANT, \
-    SYS_DIAGCTL, SYS_STATECTL, SYS_SAFEMEMSET
+	SYS_EXIT, SYS_SAFECOPYFROM, SYS_SAFECOPYTO, SYS_VSAFECOPY, SYS_GETINFO, \
+SYS_TIMES, SYS_SETALARM, SYS_SETGRANT, \
+SYS_DIAGCTL, SYS_STATECTL, SYS_SAFEMEMSET
 
 /* Field names for SYS_DEVIO, SYS_VDEVIO, SYS_SDEVIO. */
 #   define _DIO_INPUT		0x001
@@ -332,6 +332,9 @@
 #   define GET_CPUINFO    23    /* get information about cpus */
 #   define GET_REGS	  24	/* get general process registers */
 #   define GET_RUSAGE	  25	/* get resource usage */
+
+// XXX
+#define GET_MATRIX 26 /* putting a comment because everything else */
 
 /* Subfunctions for SYS_PRIVCTL */
 #define SYS_PRIV_ALLOW		1	/* Allow process to run */
