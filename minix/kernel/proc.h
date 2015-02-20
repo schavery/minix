@@ -3,12 +3,13 @@
 
 #include <minix/const.h>
 #include <sys/cdefs.h>
+#include <sys/time.h>
 
 #ifndef __ASSEMBLY__
 
 /* Here is the declaration of the process table.  It contains all process
- * data, including registers, flags, scheduling priority, memory map, 
- * accounting, message passing (IPC) information, and so on. 
+ * data, including registers, flags, scheduling priority, memory map,
+ * accounting, message passing (IPC) information, and so on.
  *
  * Many assembly code routines reference fields in it.  The offsets to these
  * fields are defined in the assembler include file sconst.h.  When changing
@@ -120,6 +121,12 @@ struct proc {
 
   int p_found;	/* consistency checking variables */
   int p_magic;		/* check validity of proc pointers */
+
+  // XXX
+  /*
+   * Add creation time field to the process table
+   */
+  time_t creation_time = time(NULL);
 
   /* if MF_SC_DEFER is set, this struct is valid and contains the
    * do_ipc() arguments that are still to be executed
@@ -265,7 +272,7 @@ struct proc {
 #define proc_nr(p) 	  ((p)->p_nr)
 
 #define isokprocn(n)      ((unsigned) ((n) + NR_TASKS) < NR_PROCS + NR_TASKS)
-#define isemptyn(n)       isemptyp(proc_addr(n)) 
+#define isemptyn(n)       isemptyp(proc_addr(n))
 #define isemptyp(p)       ((p)->p_rts_flags == RTS_SLOT_FREE)
 #define iskernelp(p)	  ((p) < BEG_USER_ADDR)
 #define iskerneln(n)	  ((n) < 0)
