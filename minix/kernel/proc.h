@@ -283,3 +283,4 @@ int mini_send(struct proc *caller_ptr, endpoint_t dst_e, message *m_ptr,
 #endif /* __ASSEMBLY__ */
 
 #endif /* PROC_H */
+
