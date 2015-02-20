@@ -1760,10 +1760,10 @@ static struct proc * pick_proc(void)
 			 * a sort array seems like too much effort.
 			 */
 			int queue_size = sizeof(rdy_head[q])/sizeof(rdy_head[q][0]);
-			rp = rdy_head[q][0]; /* initialize the "rp" for searching */
+			rp = &rdy_head[q][0]; /* initialize the "rp" for searching */
 			for (int ii = 0; ii < queue_size; ii++) {
-				if ((int)rp->creation_time > (int)rdy_head[q][ii]->creation_time) {
-					rp = rdy_head[q][ii];
+				if ((int)rp->creation_time > (int)&rdy_head[q][ii].creation_time) {
+					rp = &rdy_head[q][ii];
 				}
 			}
 		}

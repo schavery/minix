@@ -3,7 +3,6 @@
 
 #include <minix/const.h>
 #include <sys/cdefs.h>
-#include <sys/time.h>
 
 #ifndef __ASSEMBLY__
 
@@ -126,7 +125,7 @@ struct proc {
   /*
    * Add creation time field to the process table
    */
-  time_t creation_time = time(NULL);
+  time_t creation_time; 
 
   /* if MF_SC_DEFER is set, this struct is valid and contains the
    * do_ipc() arguments that are still to be executed

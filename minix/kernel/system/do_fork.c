@@ -18,6 +18,9 @@
 #include <minix/endpoint.h>
 #include <minix/u64.h>
 
+// XXX
+#include <sys/time.h>
+
 #if USE_FORK
 
 /*===========================================================================*
@@ -74,6 +77,9 @@ int do_fork(struct proc * caller, message * m_ptr)
   rpc->p_reg.retreg = 0;	/* child sees pid = 0 to know it is child */
   rpc->p_user_time = 0;		/* set all the accounting times to 0 */
   rpc->p_sys_time = 0;
+
+  // XXX
+  rpc->creation_time = time(NULL);
 
   rpc->p_misc_flags &=
 	~(MF_VIRT_TIMER | MF_PROF_TIMER | MF_SC_TRACE | MF_SPROF_SEEN | MF_STEP);
