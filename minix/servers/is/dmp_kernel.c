@@ -313,11 +313,20 @@ static char *p_rts_flags_str(int flags)
  *===========================================================================*/
 void msg_matrix_dmp(void)
 {
-	/* Proc table dump */
+	static short int msg_matrix;
 
-	static short int msg_matrix; //proc *oldrp = BEG_PROC_ADDR;
-
-	printf("THEY TOOK MY CHILD, MY BABY, AND MADE ME INTO A MAN.");
+	printf("------------- Messages sent matrix ---------------");
+	for (int i = 0; i < 256; ++i) // proc limit = 256
+	{
+		printf("%d:\n", i);
+		for (int ii = 0; ii < 256; ++ii)
+		{
+			// let's just print everything
+			// who cares if its shit
+			printf("%d,",ii);
+		}
+		printf("\n\n");
+	}
 }
 
 /*===========================================================================*
