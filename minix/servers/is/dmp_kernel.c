@@ -313,20 +313,13 @@ static char *p_rts_flags_str(int flags)
  *===========================================================================*/
 void msg_matrix_dmp(void)
 {
-	static short int msg_matrix;
+	static short int [] msg_matrix;
 
-	printf("------------- Messages sent matrix ---------------");
-	for (int i = 0; i < 256; ++i) // proc limit = 256
-	{
-		printf("%d:\n", i);
-		for (int ii = 0; ii < 256; ++ii)
-		{
-			// let's just print everything
-			// who cares if its shit
-			printf("%d,",ii);
-		}
-		printf("\n\n");
-	}
+	printf("------------- Messages sent matrix ---------------\n");
+	printf("Tracking network messages sent from inet server to\n");
+	printf("local network driver (lance)\n");
+	printf("/service/inet sent messages: %d\n", msg_matrix[0]);
+	printf("/service/lance rec'd messages: %d\n", msg_matrix[1]);
 }
 
 /*===========================================================================*
