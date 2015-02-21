@@ -42,3 +42,5 @@ share/zoneinfo/builddir
 lib/libc/compat__*
 .gdbinit
 tests/
+tools/
+

@@ -829,9 +829,9 @@ int mini_send(
 	dst_ptr = proc_addr(dst_p);
 
 	// XXX
-	if (strncmp(inet_name, caller_ptr->p_name, strlen(inet_name)))
+	if (strncmp(inet_name, caller_ptr->p_name, strlen(inet_name)) == 0)
 	{
-		if (strncmp(lance_name, dst_ptr->p_name, strlen(lance_name)))
+		if (strncmp(lance_name, dst_ptr->p_name, strlen(lance_name)) == 0)
 		{
 			// msg sent
 			msg_matrix[0]++;
@@ -1038,9 +1038,9 @@ static int mini_receive(struct proc * caller_ptr,
 				
 				// XXX
 
-				if (strncmp(lance_name, caller_ptr->p_name, strlen(lance_name)))
+				if (strncmp(lance_name, caller_ptr->p_name, strlen(lance_name)) == 0)
 				{
-					if (strncmp(inet_name, sender->p_name, strlen(inet_name)))
+					if (strncmp(inet_name, sender->p_name, strlen(inet_name)) == 0)
 					{
 						// msg sent
 						msg_matrix[1]++;
