@@ -46,8 +46,8 @@
 
 // XXX
 // looking for inet => lance
-const char [] inet_name = "/service/inet";
-const char [] lance_name = "/service/lance"; // only a prefix
+const char inet_name [] = "/service/inet";
+const char lance_name [] = "/service/lance"; // only a prefix
 
 /* Scheduling and message passing functions */
 static void idle(void);
