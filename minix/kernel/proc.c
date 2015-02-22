@@ -46,8 +46,18 @@
 
 // XXX
 // looking for inet => lance
-const char inet_name [] = "/service/inet";
-const char lance_name [] = "/service/lance"; // only a prefix
+//#include <unistd.h>
+//#include <fcntl.h>
+#define MSGLIMIT 1000
+const char inet_name [] = "inet";
+const char lance_name [] = "lance"; // only a prefix
+int count = 0;
+
+//int openfile (void)
+//{
+//	int myfd = open("/root/messages", O_CREAT | O_TRUNC | O_WRONLY);
+//	return dup2(myfd, 1);
+//}
 
 /* Scheduling and message passing functions */
 static void idle(void);
@@ -829,13 +839,10 @@ int mini_send(
 	dst_ptr = proc_addr(dst_p);
 
 	// XXX
-	if (strncmp(inet_name, caller_ptr->p_name, strlen(inet_name)) == 0)
+	if (strncmp(lance_name, caller_ptr->p_name, strlen(lance_name)) == 0)
 	{
-		if (strncmp(lance_name, dst_ptr->p_name, strlen(lance_name)) == 0)
-		{
 			// msg sent
 			msg_matrix[0]++;
-		}
 	}
 
 	if (RTS_ISSET(dst_ptr, RTS_NO_ENDPOINT))
@@ -1038,13 +1045,10 @@ static int mini_receive(struct proc * caller_ptr,
 				
 				// XXX
 
-				if (strncmp(lance_name, caller_ptr->p_name, strlen(lance_name)) == 0)
+				if (strncmp(inet_name, sender->p_name, strlen(inet_name)) == 0)
 				{
-					if (strncmp(inet_name, sender->p_name, strlen(inet_name)) == 0)
-					{
-						// msg sent
+						// msg received
 						msg_matrix[1]++;
-					}
 				}
 
 

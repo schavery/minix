@@ -315,6 +315,8 @@ void msg_matrix_dmp(void)
 {
 	static short int msg_matrix [2];
 
+//	msg_matrix = sys_getmatrix();
+
 	printf("------------- Messages sent matrix ---------------\n");
 	printf("Tracking network messages sent from inet server to\n");
 	printf("local network driver (lance)\n");

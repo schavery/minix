@@ -21,7 +21,7 @@
 
 
 // XXX
-extern short int msg_matrix;
+extern short int msg_matrix [2];
 
 #if USE_GETINFO
 
