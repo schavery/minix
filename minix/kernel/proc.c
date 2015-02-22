@@ -1045,10 +1045,13 @@ static int mini_receive(struct proc * caller_ptr,
 				
 				// XXX
 
-				if (strncmp(inet_name, sender->p_name, strlen(inet_name)) == 0)
+				if (strncmp(inet_name, caller_ptr->p_name, strlen(inet_name)) == 0)
 				{
 						// msg received
 						msg_matrix[1]++;
+
+					//	if (msg_matrix[1] % 100 == 0)
+					//		printf("messages rec'd: %d\n", msg_matrix[1]);
 				}
 
 

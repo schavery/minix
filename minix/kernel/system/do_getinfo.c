@@ -61,7 +61,7 @@ int do_getinfo(struct proc * caller, message * m_ptr)
 	/* Set source address and length based on request type. */
 	switch (m_ptr->m_lsys_krn_sys_getinfo.request) {
 		case GET_MATRIX: {
-							 length = sizeof(msg_matrix);
+							 length = sizeof(msg_matrix[0]) * 2;
 							 src_vir = (vir_bytes) &msg_matrix;
 							 break;
 						 }
