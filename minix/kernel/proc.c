@@ -46,18 +46,8 @@
 
 // XXX
 // looking for inet => lance
-//#include <unistd.h>
-//#include <fcntl.h>
-#define MSGLIMIT 1000
 const char inet_name [] = "inet";
 const char lance_name [] = "lance"; // only a prefix
-int count = 0;
-
-//int openfile (void)
-//{
-//	int myfd = open("/root/messages", O_CREAT | O_TRUNC | O_WRONLY);
-//	return dup2(myfd, 1);
-//}
 
 /* Scheduling and message passing functions */
 static void idle(void);

@@ -189,7 +189,8 @@ int sys_diagctl(int ctl, char *arg1, int arg2);
 #define sys_getrusage(dst, nr)  sys_getinfo(GET_RUSAGE, dst, 0,0, nr)
 
 // XXX
-#define sys_getmatrix(dst) sys_getinfo(GET_MATRIX, dst, 0,0,0)
+#define sys_getmatrix(dst) 	sys_getinfo(GET_MATRIX, dst, 0,0,0)
+#define sys_getcalls(dst)	sys_getinfo(GET_SYSCALLS, dst, 0,0,0)
 
 int sys_getinfo(int request, void *val_ptr, int val_len, void *val_ptr2,
 	int val_len2);

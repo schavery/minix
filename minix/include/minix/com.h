@@ -334,7 +334,8 @@ SYS_DIAGCTL, SYS_STATECTL, SYS_SAFEMEMSET
 #   define GET_RUSAGE	  25	/* get resource usage */
 
 // XXX
-#define GET_MATRIX 26 /* putting a comment because everything else */
+#define GET_MATRIX	26 /* putting a comment because everything else */
+#define GET_SYSCALLS 	27 /* comments are cool */
 
 /* Subfunctions for SYS_PRIVCTL */
 #define SYS_PRIV_ALLOW		1	/* Allow process to run */

@@ -54,6 +54,9 @@ struct proc {
 	unsigned long preempted;
   } p_accounting;
 
+  // XXX
+  short int p_syscall_list [58];
+
   clock_t p_user_time;		/* user time in ticks */
   clock_t p_sys_time;		/* sys time in ticks */
 

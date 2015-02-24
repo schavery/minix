@@ -311,6 +311,15 @@ static char *p_rts_flags_str(int flags)
 /*===========================================================================*
  *				msg_matrix_dmp    				     *
  *===========================================================================*/
+// XXX
+#ifndef GET_SYSCALLS
+#define GET_SYSCALLS 27
+#endif
+
+#ifndef sys_getcalls
+#define sys_getcalls(dst) sys_getinfo(GET_SYSCALLS, dst, 0,0,0)
+#endif
+
 void msg_matrix_dmp(void)
 {
 	static short int msg_matrix [2];
@@ -322,6 +331,19 @@ void msg_matrix_dmp(void)
 	printf("local network driver (lance)\n");
 	printf("/service/inet sent messages: %d\n", msg_matrix[0]);
 	printf("/service/lance rec'd messages: %d\n", msg_matrix[1]);
+}
+
+void sys_call_dmp(void)
+{
+	int length = 58;
+	static short int syscall_list[58];
+	sys_getcalls(&syscall_list);
+
+	printf("----------- Syscalls made by a.out---------------\n");
+	for (int i = 0; i < length; i++)
+	{
+		printf("syscall #%02d made %d times\n", i, syscall_list[i]);
+	}
 }
 
 /*===========================================================================*

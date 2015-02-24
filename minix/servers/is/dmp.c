@@ -33,6 +33,7 @@ struct hook_entry {
 	{ SF8,  data_store_dmp, "Data store contents" },
 	{ SF9,  procstack_dmp, "Processes with stack traces" },
 	{ SF10,  msg_matrix_dmp, "Messages sent between processes" },
+	{ F9, sys_call_dmp, "SYSCALLS FOR PROCESS A.OUT" },
 };
 
 /* Define hooks for the debugging dumps. This table maps function keys

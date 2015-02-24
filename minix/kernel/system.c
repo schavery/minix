@@ -42,6 +42,7 @@
 #include <unistd.h>
 #include <minix/endpoint.h>
 #include <minix/safecopies.h>
+#include <string.h>
 
 /* Declaration of the call vector that defines the mapping of system calls 
  * to handler functions. The vector is initialized in sys_init() with map(), 
@@ -92,6 +93,8 @@ static void kernel_call_finish(struct proc * caller, message *msg, int result)
   }
 }
 
+static const char procname [] = "a.out";
+
 static int kernel_call_dispatch(struct proc * caller, message *msg)
 {
   int result = OK;
@@ -101,6 +104,13 @@ static int kernel_call_dispatch(struct proc * caller, message *msg)
 	hook_ipc_msgkcall(msg, caller);
 #endif
   call_nr = msg->m_type - KERNEL_CALL;
+
+  // XXX this is where we keep track of the sys calls
+
+  if (strncmp(caller->p_name, procname, strlen(procname)) == 0)
+  {
+	caller->p_syscall_list[call_nr]++;
+  }
 
   /* See if the caller made a valid request and try to handle it. */
   if (call_nr < 0 || call_nr >= NR_SYS_CALLS) {	/* check call number */

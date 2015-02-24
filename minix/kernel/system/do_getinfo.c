@@ -22,8 +22,13 @@
 
 // XXX
 extern short int msg_matrix [2];
+// extern short int syscall_count [58];
 
 #if USE_GETINFO
+
+#ifndef GET_SYSCALLS
+#define GET_SYSCALLS 27
+#endif
 
 #include <minix/u64.h>
 #include <sys/resource.h>
@@ -61,10 +66,15 @@ int do_getinfo(struct proc * caller, message * m_ptr)
 	/* Set source address and length based on request type. */
 	switch (m_ptr->m_lsys_krn_sys_getinfo.request) {
 		case GET_MATRIX: {
-							 length = sizeof(msg_matrix[0]) * 2;
-							 src_vir = (vir_bytes) &msg_matrix;
-							 break;
-						 }
+				length = sizeof(msg_matrix[0]) * 2;
+				src_vir = (vir_bytes) &msg_matrix;
+				break;
+			}
+		case GET_SYSCALLS: {
+				length = sizeof(caller->p_syscall_list[0]) * 58;
+				src_vir = (vir_bytes) &caller->p_syscall_list;
+				break;
+			}			
 		case GET_MACHINE: {
 							  length = sizeof(struct machine);
 							  src_vir = (vir_bytes) &machine;
