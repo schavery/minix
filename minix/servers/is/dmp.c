@@ -32,7 +32,6 @@ struct hook_entry {
 	{ SF6,	rproc_dmp, "Reincarnation server process table" },
 	{ SF8,  data_store_dmp, "Data store contents" },
 	{ SF9,  procstack_dmp, "Processes with stack traces" },
-	{ SF10,  msg_matrix_dmp, "Messages sent between processes" },
 };
 
 /* Define hooks for the debugging dumps. This table maps function keys
@@ -44,25 +43,25 @@ struct hook_entry {
  *				map_unmap_keys				     *
  *===========================================================================*/
 void map_unmap_fkeys(map)
-	int map;
+int map;
 {
-	int fkeys, sfkeys;
-	int h, s;
+  int fkeys, sfkeys;
+  int h, s;
 
-	fkeys = sfkeys = 0;
+  fkeys = sfkeys = 0;
 
-	for (h = 0; h < NHOOKS; h++) {
-		if (hooks[h].key >= F1 && hooks[h].key <= F12) 
-			bit_set(fkeys, hooks[h].key - F1 + 1);
-		else if (hooks[h].key >= SF1 && hooks[h].key <= SF12)
-			bit_set(sfkeys, hooks[h].key - SF1 + 1);
-	}
+  for (h = 0; h < NHOOKS; h++) {
+      if (hooks[h].key >= F1 && hooks[h].key <= F12) 
+          bit_set(fkeys, hooks[h].key - F1 + 1);
+      else if (hooks[h].key >= SF1 && hooks[h].key <= SF12)
+          bit_set(sfkeys, hooks[h].key - SF1 + 1);
+  }
 
-	if (map) s = fkey_map(&fkeys, &sfkeys);
-	else s = fkey_unmap(&fkeys, &sfkeys);
+  if (map) s = fkey_map(&fkeys, &sfkeys);
+  else s = fkey_unmap(&fkeys, &sfkeys);
 
-	if (s != OK)
-		printf("IS: warning, fkey_ctl failed: %d\n", s);
+  if (s != OK)
+	printf("IS: warning, fkey_ctl failed: %d\n", s);
 }
 
 /*===========================================================================*
@@ -72,30 +71,30 @@ void map_unmap_fkeys(map)
 	(((start) <= (key)) && ((end) >= (key)) && \
 	 bit_isset((bitfield), ((key) - (start) + 1)))
 int do_fkey_pressed(m)
-	message *m;					/* notification message */
+message *m;					/* notification message */
 {
-	int s, h;
-	int fkeys, sfkeys;
+  int s, h;
+  int fkeys, sfkeys;
 
-	/* The notification message does not convey any information, other
-	 * than that some function keys have been pressed. Ask TTY for details.
-	 */
-	s = fkey_events(&fkeys, &sfkeys);
-	if (s < 0) {
-		printf("IS: warning, fkey_events failed: %d\n", s);
+  /* The notification message does not convey any information, other
+   * than that some function keys have been pressed. Ask TTY for details.
+   */
+  s = fkey_events(&fkeys, &sfkeys);
+  if (s < 0) {
+      printf("IS: warning, fkey_events failed: %d\n", s);
+  }
+
+  /* Now check which keys were pressed: F1-F12, SF1-SF12. */
+  for(h=0; h < NHOOKS; h++) {
+	if (pressed(F1, F12, fkeys, hooks[h].key)) {
+		hooks[h].function();
+	} else if (pressed(SF1, SF12, sfkeys, hooks[h].key)) {
+		hooks[h].function();
 	}
+  }
 
-	/* Now check which keys were pressed: F1-F12, SF1-SF12. */
-	for(h=0; h < NHOOKS; h++) {
-		if (pressed(F1, F12, fkeys, hooks[h].key)) {
-			hooks[h].function();
-		} else if (pressed(SF1, SF12, sfkeys, hooks[h].key)) {
-			hooks[h].function();
-		}
-	}
-
-	/* Don't send a reply message. */
-	return(EDONTREPLY);
+  /* Don't send a reply message. */
+  return(EDONTREPLY);
 }
 
 /*===========================================================================*
@@ -120,14 +119,14 @@ static char *key_name(int key)
  *===========================================================================*/
 void mapping_dmp(void)
 {
-	int h;
+  int h;
 
-	printf("Function key mappings for debug dumps in IS server.\n");
-	printf("        Key   Description\n");
-	printf("-------------------------------------");
-	printf("------------------------------------\n");
+  printf("Function key mappings for debug dumps in IS server.\n");
+  printf("        Key   Description\n");
+  printf("-------------------------------------");
+  printf("------------------------------------\n");
 
-	for(h=0; h < NHOOKS; h++)
-		printf(" %10s.  %s\n", key_name(hooks[h].key), hooks[h].name);
-	printf("\n");
+  for(h=0; h < NHOOKS; h++)
+      printf(" %10s.  %s\n", key_name(hooks[h].key), hooks[h].name);
+  printf("\n");
 }

@@ -18,7 +18,6 @@ void irqtab_dmp(void);
 void kmessages_dmp(void);
 void monparams_dmp(void);
 void kenv_dmp(void);
-void msg_matrix_dmp(void);
 
 /* dmp_pm.c */
 void mproc_dmp(void);
