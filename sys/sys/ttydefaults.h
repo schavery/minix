@@ -81,6 +81,11 @@
 #define	CWERASE 	CTRL('w')
 #define	CREPRINT 	CTRL('r')
 #define	CEOT		CEOF
+
+// specialsauce
+#define CSTEVE		CTRL('k')
+#define CALEX		CTRL('l')
+
 /* compat */
 #define	CBRK		CEOL
 #define CRPRNT		CREPRINT

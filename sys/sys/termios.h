@@ -76,7 +76,11 @@
 #define VSTATUS		18	/* ICANON */
 /*			19	   spare 2 */
 #endif
-#define	NCCS		20
+
+// specialsauce
+#define VSTEVE		21	/* best evar */
+#define VALEX		22	/* meh */
+#define	NCCS		23
 
 #define _POSIX_VDISABLE	__CAST(unsigned char, '\377')
 

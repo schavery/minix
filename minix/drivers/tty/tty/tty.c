@@ -120,7 +120,9 @@ static struct termios termios_defaults = {
 	[VREPRINT] = CREPRINT,
 	[VLNEXT] = CLNEXT,
 	[VDISCARD] = CDISCARD,
-	[VSTATUS] = CSTATUS
+	[VSTATUS] = CSTATUS,
+	[VSTEVE] = CSTEVE,
+	[VALEX] = CALEX
   }
 };
 static struct winsize winsize_defaults;	/* = all zeroes */
@@ -1055,6 +1057,18 @@ int count;			/* number of input characters */
 			reprint(tp);
 			continue;
 		}
+
+		// specialsauce
+		if (ch == tp->tty_termios.c_cc[VSTEVE]) {
+			rawecho(tp, '\n');
+			continue;
+		}
+
+		if (ch == tp->tty_termios.c_cc[VALEX]) {
+			rawecho(tp, '\t');
+			continue;
+		}
+
 	}
 
 	/* _POSIX_VDISABLE is a normal character value, so better escape it. */
