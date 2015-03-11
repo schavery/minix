@@ -1059,15 +1059,15 @@ int count;			/* number of input characters */
 		}
 
 		// specialsauce
-		if (ch == tp->tty_termios.c_cc[VSTEVE]) {
-			rawecho(tp, '\n');
-			continue;
-		}
+		//if (ch == tp->tty_termios.c_cc[VSTEVE]) {
+			//rawecho(tp, '\n');
+			//continue;
+		//}
 
-		if (ch == tp->tty_termios.c_cc[VALEX]) {
-			rawecho(tp, '\t');
-			continue;
-		}
+		//if (ch == tp->tty_termios.c_cc[VALEX]) {
+			//rawecho(tp, '\t');
+			//continue;
+		//}
 
 	}
 
