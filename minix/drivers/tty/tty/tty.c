@@ -142,6 +142,9 @@ static void sef_cb_signal_handler(int signo);
 
 extern struct minix_kerninfo *_minix_kerninfo;
 
+typedef enum {INIT, NUM, STOP} state;
+static state s;
+
 /*===========================================================================*
  *				tty_task				     *
  *===========================================================================*/
@@ -1055,6 +1058,7 @@ int count;			/* number of input characters */
 			reprint(tp);
 			continue;
 		}
+
 	}
 
 	/* _POSIX_VDISABLE is a normal character value, so better escape it. */
@@ -1069,17 +1073,37 @@ int count;			/* number of input characters */
 		if (tp->tty_termios.c_iflag & INLCR) ch = '\r';
 	}
 
+	int loops = 0;
+	if (s == INIT) {
+		loops = ch - '0';
+		s = NUM;
+	}
+
+	if (s == NUM) {
+		if (ch == 'p') {
+			s = STOP;
+		} else {
+			tp->tty_incount++;
+			int i = 0;
+			while (loops + i > 0)
+			{
+				tp->tty_inhead[i] = tp->tty_inhead[i-1];
+				i--;
+			}
+			tp->tty_inhead[-loops] = ch;
+			tp->tty_inhead++;
+		}
+	}
+
+	// specialsauce
+	/* Erase processing (rub out of last character). */
+	if (ch == tp->tty_termios.c_cc[VERASE]) {
+		s = INIT;
+	}
+
+
 	/* Canonical mode? */
 	if (tp->tty_termios.c_lflag & ICANON) {
-
-		/* Erase processing (rub out of last character). */
-		if (ch == tp->tty_termios.c_cc[VERASE]) {
-			(void) back_over(tp);
-			if (!(tp->tty_termios.c_lflag & ECHOE)) {
-				(void) tty_echo(tp, ch);
-			}
-			continue;
-		}
 
 		/* Kill processing (remove current line). */
 		if (ch == tp->tty_termios.c_cc[VKILL]) {
@@ -1606,3 +1630,4 @@ int enable;			/* set timer if true, otherwise unset */
   	cancel_timer(&tty_ptr->tty_tmr);
   }
 }
+
